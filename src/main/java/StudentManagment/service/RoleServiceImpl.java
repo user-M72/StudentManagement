@@ -4,12 +4,14 @@ import StudentManagment.dto.RoleRequestDto;
 import StudentManagment.entity.Role;
 import StudentManagment.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+@Service
 public class RoleServiceImpl implements RoleService{
 
     @Autowired private RoleRepository repository;

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -23,13 +24,14 @@ public class UserServiceImpl implements UserService{
     @Autowired private RoleService roleService;
 
     @Override
-    public List<User> get() {
-        return userRepository.findAll();
+    public List<UserResponseDto> get() {
+        return userRepository.findAll().stream().map(userMapper::toDto).collect(Collectors.toList());
     }
 
     @Override
-    public User getById(UUID id) {
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+    public UserResponseDto getById(UUID id) {
+        return userRepository.findById(id).map(userMapper::toDto)
+                .orElseThrow(()->new RuntimeException("User not found"));
     }
 
     @Override
