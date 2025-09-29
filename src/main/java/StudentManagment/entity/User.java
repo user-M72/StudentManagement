@@ -2,6 +2,7 @@ package StudentManagment.entity;
 
 import StudentManagment.entity.base.BaseDomain;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import lombok.Getter;
@@ -26,8 +27,8 @@ public class User extends BaseDomain<UUID>{
     @ManyToMany
     @JoinTable(
             name = "users_roles",
-            joinColumns = @JoinTable(name = "user_id"),
-            inverseJoinColumns = @JoinTable(name = "role_id")
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
 }
