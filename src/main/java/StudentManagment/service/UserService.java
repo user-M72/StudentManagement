@@ -2,7 +2,6 @@ package StudentManagment.service;
 
 import StudentManagment.dto.UserRequestDto;
 import StudentManagment.dto.UserResponseDto;
-import StudentManagment.entity.User;
 
 import java.util.List;
 import java.util.UUID;
