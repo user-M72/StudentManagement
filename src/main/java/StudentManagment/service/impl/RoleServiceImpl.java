@@ -1,10 +1,11 @@
-package StudentManagment.service;
+package StudentManagment.service.impl;
 
-import StudentManagment.dto.RoleRequestDto;
-import StudentManagment.dto.RoleResponseDto;
+import StudentManagment.dto.req.RoleRequestDto;
+import StudentManagment.dto.res.RoleResponseDto;
 import StudentManagment.entity.Role;
 import StudentManagment.mapper.RoleMapper;
 import StudentManagment.repository.RoleRepository;
+import StudentManagment.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +16,13 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-public class RoleServiceImpl implements RoleService{
+public class RoleServiceImpl implements RoleService {
 
-    @Autowired private RoleRepository repository;
-    @Autowired private RoleMapper roleMapper;
+    @Autowired
+    private RoleRepository repository;
+    @Autowired
+    private RoleMapper roleMapper;
+
     @Override
     public List<RoleResponseDto> get() {
         return repository.findAll().stream().map(roleMapper::toDto).collect(Collectors.toList());
@@ -26,7 +30,7 @@ public class RoleServiceImpl implements RoleService{
 
     @Override
     public Role getById(UUID id) {
-        Role role = repository.findById(id).orElseThrow(()->new RuntimeException("Role not found"));
+        Role role = repository.findById(id).orElseThrow(() -> new RuntimeException("Role not found"));
         return role;
     }
 
@@ -38,7 +42,7 @@ public class RoleServiceImpl implements RoleService{
 
     @Override
     public RoleResponseDto update(UUID id, RoleRequestDto dto) {
-        Role role = repository.findById(id).orElseThrow(()-> new RuntimeException("Role not found"));
+        Role role = repository.findById(id).orElseThrow(() -> new RuntimeException("Role not found"));
         roleMapper.updateFromDto(dto, role);
         return roleMapper.toDto(repository.save(role));
     }

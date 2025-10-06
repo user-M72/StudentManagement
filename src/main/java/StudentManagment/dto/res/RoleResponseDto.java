@@ -1,4 +1,4 @@
-package StudentManagment.dto;
+package StudentManagment.dto.res;
 
 import java.util.UUID;
 

@@ -1,7 +1,7 @@
 package StudentManagment.service;
 
-import StudentManagment.dto.UserRequestDto;
-import StudentManagment.dto.UserResponseDto;
+import StudentManagment.dto.req.UserRequestDto;
+import StudentManagment.dto.res.UserResponseDto;
 
 import java.util.List;
 import java.util.UUID;

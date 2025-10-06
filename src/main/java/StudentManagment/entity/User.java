@@ -15,13 +15,11 @@ import java.util.UUID;
 @Entity(name = "Users")
 @Getter
 @Setter
-public class User extends BaseDomain<UUID>{
+public class User extends BaseDomain<UUID> {
 
-    private String firstname;
-    private String lastname;
-    private String phoneNumber;
-    private String email;
+    private String username;
     private String password;
+    private String email;
 
 
     @ManyToMany

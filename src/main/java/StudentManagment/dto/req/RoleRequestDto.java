@@ -1,4 +1,4 @@
-package StudentManagment.dto;
+package StudentManagment.dto.req;
 
 public record RoleRequestDto(
         String name,
