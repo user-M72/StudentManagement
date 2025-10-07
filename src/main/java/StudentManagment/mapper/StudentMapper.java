@@ -12,7 +12,7 @@ public interface StudentMapper {
 
     StudentResponseDto toDto(Student student);
 
-    @Mapping(source = "studentName", target = "name")
+    @Mapping(target = "name", ignore = true)
     Student toEntity(StudentRequestDto dto);
 
     void updateFromDto(StudentRequestDto dto, @MappingTarget Student student);

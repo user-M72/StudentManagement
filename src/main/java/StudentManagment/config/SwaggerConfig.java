@@ -22,9 +22,9 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Digital Assets Service")
+                        .title("Student Managment service")
                         .version("1.0.0")
-                        .description("API for managing digital assets"))
+                        .description("API for managing Student"))
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
                 .components(
                         new Components()
