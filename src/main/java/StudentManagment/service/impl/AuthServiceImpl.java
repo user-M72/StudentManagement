@@ -20,7 +20,7 @@ public class AuthServiceImpl implements AuthService {
     public AuthResponseDto register(AuthRequestDto dto) {
         return null;
     }
-//todo кайфуем
+
     @Override
     public AuthResponseDto login(AuthRequestDto dto) {
         return null;

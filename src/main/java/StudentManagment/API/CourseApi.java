@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/course/v1")
+@RequestMapping("api/courses/v1")
 public class CourseApi {
 
     @Autowired
@@ -28,4 +28,5 @@ public class CourseApi {
         CourseResponseDto create = service.created(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(create);
     }
+
 }
