@@ -1,6 +1,7 @@
 package StudentManagment.API;
 
 import StudentManagment.dto.req.AuthRequestDto;
+import StudentManagment.dto.res.AuthResponseDto;
 import StudentManagment.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,14 +13,16 @@ public class AuthApi {
     @Autowired
     private AuthService authService;
 
-    @PostMapping
-    public String login(@RequestBody AuthRequestDto dto){
+
+    @PostMapping("/register")
+    public AuthResponseDto register(@RequestBody AuthRequestDto dto){
+        return authService.register(dto);
+    }
+
+    @PostMapping("/login")
+    public AuthResponseDto login(@RequestBody AuthRequestDto dto){
         return authService.login(dto);
 
     }
 
-    @PostMapping
-    public String register(@RequestBody AuthRequestDto dto){
-        return authService.register(dto);
-    }
 }
