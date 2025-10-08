@@ -5,6 +5,7 @@ import StudentManagment.dto.res.AuthResponseDto;
 import StudentManagment.entity.User;
 import StudentManagment.repository.UserRepository;
 import StudentManagment.service.AuthService;
+import StudentManagment.service.AuthTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private PasswordEncoder encoder;
     @Autowired
-    private AuthtokenService authtokenService;
+    private AuthTokenService authtokenService;
 
     @Override
     public AuthResponseDto register(AuthRequestDto dto) {
@@ -30,11 +31,21 @@ public class AuthServiceImpl implements AuthService {
         user.setPassword(encoder.encode(dto.password()));
         repository.save(user);
 
-        String token =
+        String token = authtokenService.generateToken(user.getUsername());
+
+        return new AuthResponseDto(user.getUsername(), token);
     }
 
     @Override
     public AuthResponseDto login(AuthRequestDto dto) {
-        return null;
+        User user = repository.findByUsername(dto.username())
+                .orElseThrow(()-> new RuntimeException("User not found"));
+
+        if (!encoder.matches(dto.password(), user.getPassword())){
+            throw new RuntimeException("Invalid password");
+        }
+
+        String token = authtokenService.generateToken(user.getUsername());
+        return new AuthResponseDto(user.getUsername(), token);
     }
 }
