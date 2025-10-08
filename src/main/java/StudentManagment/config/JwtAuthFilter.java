@@ -31,28 +31,29 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
-        String authHeader = request.getHeader("Authorization");
+        final String authHeader = request.getHeader("Authorization");
+        final String jwt;
+        final String username;
 
-        // 🔹 Проверяем наличие и формат заголовка
+        // 🔹 Проверяем наличие и корректность заголовка
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        String jwt = authHeader.substring(7);
-        String username = null;
+        jwt = authHeader.substring(7);
 
         try {
             username = tokenService.extractUsername(jwt);
         } catch (Exception e) {
-            log.warn("JWT parsing failed: {}", e.getMessage());
+            log.warn("Failed to extract username from token: {}", e.getMessage());
             filterChain.doFilter(request, response);
             return;
         }
 
-        // 🔹 Проверяем, не аутентифицирован ли пользователь уже
+        // 🔹 Проверяем, что пользователь ещё не аутентифицирован
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
             // 🔹 Проверка валидности токена
             if (tokenService.isTokenValid(jwt, userDetails)) {
@@ -67,13 +68,15 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                         new WebAuthenticationDetailsSource().buildDetails(request)
                 );
 
+                // ✅ Помещаем пользователя в контекст безопасности
                 SecurityContextHolder.getContext().setAuthentication(authToken);
-                log.debug("Authenticated user: {}", username);
+                log.debug("✅ Authenticated user: {}", username);
             } else {
-                log.warn("Invalid JWT token for user: {}", username);
+                log.warn("❌ Invalid JWT token for user: {}", username);
             }
         }
 
+        // 🔹 Продолжаем цепочку фильтров
         filterChain.doFilter(request, response);
     }
 }

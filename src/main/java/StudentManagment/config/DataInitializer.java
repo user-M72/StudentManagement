@@ -25,7 +25,7 @@ public class DataInitializer {
             if (userRepository.findByUsername("admin").isEmpty()) {
 
                 // Проверяем, есть ли роль ADMIN
-                Role adminRole = roleRepository.findByName("ADMIN")
+                Role adminRole = roleRepository.findByName(RoleEnum.ADMIN)
                         .orElseGet(() -> {
                             Role role = new Role();
                             role.setName(RoleEnum.ADMIN);
