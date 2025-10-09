@@ -5,7 +5,6 @@ import StudentManagment.dto.res.AuthResponseDto;
 import StudentManagment.entity.User;
 import StudentManagment.repository.UserRepository;
 import StudentManagment.service.AuthService;
-import StudentManagment.service.AuthTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

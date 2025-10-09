@@ -1,4 +1,4 @@
-package StudentManagment.service;
+package StudentManagment.service.impl;
 
 import StudentManagment.entity.User;
 import StudentManagment.repository.UserRepository;

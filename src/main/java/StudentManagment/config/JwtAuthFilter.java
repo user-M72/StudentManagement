@@ -1,6 +1,6 @@
 package StudentManagment.config;
 
-import StudentManagment.service.AuthTokenService;
+import StudentManagment.service.impl.AuthTokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

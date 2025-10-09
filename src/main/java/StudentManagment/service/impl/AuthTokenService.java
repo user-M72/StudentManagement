@@ -1,4 +1,4 @@
-package StudentManagment.service;
+package StudentManagment.service.impl;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
