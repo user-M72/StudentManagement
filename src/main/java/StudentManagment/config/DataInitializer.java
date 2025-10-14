@@ -44,4 +44,42 @@ public class DataInitializer {
             }
         };
     }
+    @Bean
+    public CommandLineRunner initRoleAdmin(RoleRepository roleRepository){
+        return args -> {
+            if (roleRepository.findByName(RoleEnum.ADMIN).isEmpty()){
+                Role roleAdmin = new Role();
+                roleAdmin.setName(RoleEnum.ADMIN);
+                roleAdmin.setDescription("administrator");
+                roleRepository.save(roleAdmin);
+                return;
+            }
+        };
+    }
+
+    @Bean
+    public CommandLineRunner initRoleTeacher(RoleRepository roleRepository) {
+        return args -> {
+            if (roleRepository.findByName(RoleEnum.TEACHER).isEmpty()) {
+                Role teacherRole = new Role();
+                teacherRole.setName(RoleEnum.TEACHER);
+                teacherRole.setDescription("Teach student");
+                roleRepository.save(teacherRole);
+                return;
+            }
+        };
+    }
+
+    @Bean
+    public CommandLineRunner initRoleStudent(RoleRepository roleRepository){
+        return args -> {
+            if (roleRepository.findByName(RoleEnum.STUDENT).isEmpty()){
+                Role studentRole = new Role();
+                studentRole.setName(RoleEnum.STUDENT);
+                studentRole.setDescription("Hard working, engaged");
+                roleRepository.save(studentRole);
+                return;
+            }
+        };
+    }
 }
