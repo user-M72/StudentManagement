@@ -23,7 +23,55 @@ public class DataInitializer {
     private final PasswordEncoder passwordEncoder;
 
     @Bean
-    public CommandLineRunner initAdminUser(RoleRepository roleRepository, UserRepository userRepository){
+    public CommandLineRunner initRoleAdmin(RoleRepository roleRepository) {
+        return args -> {
+            if (roleRepository.findByName(RoleEnum.ADMIN).isEmpty()) {
+                Role roleAdmin = new Role();
+                roleAdmin.setName(RoleEnum.ADMIN);
+                roleAdmin.setDescription("administrator");
+                roleRepository.save(roleAdmin);
+            }
+
+            if (roleRepository.findByName(RoleEnum.TEACHER).isEmpty()) {
+                Role teacherRole = new Role();
+                teacherRole.setName(RoleEnum.TEACHER);
+                teacherRole.setDescription("Teach student");
+                roleRepository.save(teacherRole);
+            }
+
+            if (roleRepository.findByName(RoleEnum.STUDENT).isEmpty()) {
+                Role studentRole = new Role();
+                studentRole.setName(RoleEnum.STUDENT);
+                studentRole.setDescription("Hard working, engaged");
+                roleRepository.save(studentRole);
+            }
+        };
+    }
+
+    @Bean
+    public CommandLineRunner initCourses(CourseRepository courseRepository) {
+        return args -> {
+            if (courseRepository.count() == 0) {
+
+                Course math = new Course();
+                math.setTitle("Mathematics");
+                math.setDescription("Learn algebra and geometry");
+
+                Course physics = new Course();
+                physics.setTitle("Physics");
+                physics.setDescription("Mechanics and thermodynamics");
+
+                Course programming = new Course();
+                programming.setTitle("Programming");
+                programming.setDescription("Java and Spring Boot");
+
+                courseRepository.saveAll(List.of(math, physics, programming));
+            }
+        };
+    }
+
+    @Bean
+    public CommandLineRunner initAdminUser(RoleRepository roleRepository, UserRepository userRepository) {
         return args -> {
             if (userRepository.findByUsername("admin").isEmpty()) {
 
@@ -44,63 +92,6 @@ public class DataInitializer {
 
                 userRepository.save(admin);
                 System.out.println("✅ Admin user created: username=admin, password=admin");
-            }
-        };
-    }
-    @Bean
-    public CommandLineRunner initRoleAdmin(RoleRepository roleRepository){
-        return args -> {
-            if (roleRepository.findByName(RoleEnum.ADMIN).isEmpty()){
-                Role roleAdmin = new Role();
-                roleAdmin.setName(RoleEnum.ADMIN);
-                roleAdmin.setDescription("administrator");
-                roleRepository.save(roleAdmin);
-            }
-        };
-    }
-
-    @Bean
-    public CommandLineRunner initRoleTeacher(RoleRepository roleRepository) {
-        return args -> {
-            if (roleRepository.findByName(RoleEnum.TEACHER).isEmpty()) {
-                Role teacherRole = new Role();
-                teacherRole.setName(RoleEnum.TEACHER);
-                teacherRole.setDescription("Teach student");
-                roleRepository.save(teacherRole);
-            }
-        };
-    }
-
-    @Bean
-    public CommandLineRunner initRoleStudent(RoleRepository roleRepository){
-        return args -> {
-            if (roleRepository.findByName(RoleEnum.STUDENT).isEmpty()){
-                Role studentRole = new Role();
-                studentRole.setName(RoleEnum.STUDENT);
-                studentRole.setDescription("Hard working, engaged");
-                roleRepository.save(studentRole);
-            }
-        };
-    }
-
-    @Bean
-    public CommandLineRunner initCourses(CourseRepository courseRepository){
-        return args -> {
-            if (courseRepository.count() == 0){
-
-                Course math = new Course();
-                math.setTitle("Mathematics");
-                math.setDescription("Learn algebra and geometry");
-
-                Course physics = new Course();
-                physics.setTitle("Physics");
-                physics.setDescription("Mechanics and thermodynamics");
-
-                Course programming = new Course();
-                programming.setTitle("Programming");
-                programming.setDescription("Java and Spring Boot");
-
-                courseRepository.saveAll(List.of(math, physics, programming));
             }
         };
     }
