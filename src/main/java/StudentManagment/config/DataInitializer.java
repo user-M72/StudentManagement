@@ -6,6 +6,7 @@ import StudentManagment.entity.Role;
 import StudentManagment.entity.User;
 import StudentManagment.repository.CourseRepository;
 import StudentManagment.repository.RoleRepository;
+import StudentManagment.repository.StudentRepository;
 import StudentManagment.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -23,7 +24,7 @@ public class DataInitializer {
     private final PasswordEncoder passwordEncoder;
 
     @Bean
-    public CommandLineRunner initRoleAdmin(RoleRepository roleRepository) {
+    public CommandLineRunner initRoles(RoleRepository roleRepository) {
         return args -> {
             if (roleRepository.findByName(RoleEnum.ADMIN).isEmpty()) {
                 Role roleAdmin = new Role();
@@ -94,5 +95,10 @@ public class DataInitializer {
                 System.out.println("✅ Admin user created: username=admin, password=admin");
             }
         };
+    }
+
+    @Bean
+    public CommandLineRunner initStudents(StudentRepository studentRepository){
+        return args -> {};
     }
 }

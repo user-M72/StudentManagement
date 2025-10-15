@@ -1,13 +1,11 @@
 package StudentManagment.entity;
 
 import StudentManagment.entity.base.BaseDomain;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -17,16 +15,17 @@ import java.util.UUID;
 @Setter
 public class Student extends BaseDomain<UUID> {
 
-    private String name;
-    private String phone;
-    private String email;
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private User user;
 
-    @ManyToMany
-    @JoinTable(
-            name = "student_courses", // 👈 имя таблицы связи
-            joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "course_id")
-    )
-    private Set<Course> courses = new HashSet<>();
+    private String studentId;
+    private LocalDate enrollmentDate;
+    private Double gpa;
+    private String major;
 
+    private Integer year;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Enrollment> enrollments = new HashSet<>();
 }

@@ -1,10 +1,7 @@
 package StudentManagment.entity;
 
 import StudentManagment.entity.base.BaseDomain;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +17,9 @@ public class User extends BaseDomain<UUID> {
     private String username;
     private String password;
     private String email;
-
+    private String firstName;
+    private String lastName;
+    private String phone;
 
     @ManyToMany
     @JoinTable(
@@ -29,4 +28,11 @@ public class User extends BaseDomain<UUID> {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
+
+    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
+    private Student student;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Teacher teacher;
+
 }
