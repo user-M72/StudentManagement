@@ -1,12 +1,15 @@
 package StudentManagment.dto.req;
 
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public record UserRequestDto(
         String username,
-        String email,
         String password,
-        List<UUID> roleIds
+        String email,
+        String firstName,
+        String lastName,
+        String phoneNumber,
+        Set<UUID> roleIds
 ) {
 }
