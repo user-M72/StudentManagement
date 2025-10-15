@@ -49,27 +49,27 @@ public class DataInitializer {
         };
     }
 
-    @Bean
-    public CommandLineRunner initCourses(CourseRepository courseRepository) {
-        return args -> {
-            if (courseRepository.count() == 0) {
-
-                Course math = new Course();
-                math.setTitle("Mathematics");
-                math.setDescription("Learn algebra and geometry");
-
-                Course physics = new Course();
-                physics.setTitle("Physics");
-                physics.setDescription("Mechanics and thermodynamics");
-
-                Course programming = new Course();
-                programming.setTitle("Programming");
-                programming.setDescription("Java and Spring Boot");
-
-                courseRepository.saveAll(List.of(math, physics, programming));
-            }
-        };
-    }
+//    @Bean
+//    public CommandLineRunner initCourses(CourseRepository courseRepository) {
+//        return args -> {
+//            if (courseRepository.count() == 0) {
+//
+//                Course math = new Course();
+//                math.setTitle("Mathematics");
+//                math.setDescription("Learn algebra and geometry");
+//
+//                Course physics = new Course();
+//                physics.setTitle("Physics");
+//                physics.setDescription("Mechanics and thermodynamics");
+//
+//                Course programming = new Course();
+//                programming.setTitle("Programming");
+//                programming.setDescription("Java and Spring Boot");
+//
+//                courseRepository.saveAll(List.of(math, physics, programming));
+//            }
+//        };
+//    }
 
     @Bean
     public CommandLineRunner initAdminUser(RoleRepository roleRepository, UserRepository userRepository) {

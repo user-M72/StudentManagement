@@ -13,7 +13,7 @@ public interface StudentMapper {
 
     StudentResponseDto toDto(Student student);
 
-    @Mapping(target = "name", ignore = true)
+
     Student toEntity(StudentRequestDto dto);
 
     void updateFromDto(StudentRequestDto dto, @MappingTarget Student student);

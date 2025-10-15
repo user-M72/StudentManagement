@@ -23,9 +23,11 @@ public class Teacher extends BaseDomain<UUID> {
     private String specialization;
     private LocalDateTime hireDate;
 
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
 
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
-
     private Set<Course> courses = new HashSet<>();
 
 }

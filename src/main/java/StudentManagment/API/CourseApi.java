@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/courses/v1")
@@ -21,12 +22,28 @@ public class CourseApi {
     public List<CourseResponseDto> get(){
         return service.get();
     }
+    @GetMapping("courseId")
+    public CourseResponseDto getById(@PathVariable("courseId")UUID id){
+        return service.getById(id);
+    }
 
     @PostMapping
     public ResponseEntity<CourseResponseDto> created(@RequestBody CourseRequestDto dto){
-
         CourseResponseDto create = service.created(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(create);
     }
+
+    @PutMapping("courseId")
+    public CourseResponseDto update(@PathVariable("courseId") UUID id,
+                                    @RequestBody CourseRequestDto dto){
+        return service.update(id, dto);
+    }
+
+    @DeleteMapping("courseId")
+    public ResponseEntity<Void> delete(@PathVariable("courseId") UUID id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }

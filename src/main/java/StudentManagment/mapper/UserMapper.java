@@ -17,11 +17,10 @@ public interface UserMapper {
 
     UserResponseDto toDto(User user);
 
-    @Mapping(target = "roles", source = "roles")
-    @Mapping(target = "password", source = "encode")
+
     User toEntity(UserRequestDto dto);
 
-    @Mapping(target = "roles", source = "roleList")
+
     User updateFromDto(UserRequestDto userRequestDto, Set<Role> roleList, @MappingTarget User user);
 
 }
