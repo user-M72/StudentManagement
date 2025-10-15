@@ -2,6 +2,7 @@ package StudentManagment.entity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,10 +20,10 @@ public class Department {
 
     private String description;
 
-    @OneToOne(mappedBy = "department", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
     private Set<Course> courses = new HashSet<>();
 
 
-    @OneToOne(mappedBy = "department", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
     private Set<Teacher> teachers = new HashSet<>();
 }

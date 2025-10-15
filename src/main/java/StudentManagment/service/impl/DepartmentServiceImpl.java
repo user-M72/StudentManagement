@@ -27,7 +27,6 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Autowired
     private DepartmentMapper mapper;
 
-//todo: continue next day
 
     @Override
     public List<DepartmentResponseDto> get() {
@@ -43,16 +42,28 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public DepartmentResponseDto create(DepartmentRequestDto dto) {
-        return null;
+        Department department = mapper.toEntity(dto);
+        departmentRepository.save(department);
+        return mapper.toDto(department);
     }
 
     @Override
     public DepartmentResponseDto update(UUID id, DepartmentRequestDto dto) {
-        return null;
+        Department department = departmentRepository.findById(id)
+                .orElseThrow(()->new RuntimeException("Department not found with id: "+ id));
+        department.setName(dto.name());
+        department.setCode(dto.code());
+        department.setDescription(dto.description());
+
+        departmentRepository.save(department);
+        return mapper.toDto(department);
     }
 
     @Override
     public void delete(UUID id) {
-
+        if (!departmentRepository.existsById(id)){
+            throw new RuntimeException("Department not found with id: "+id);
+        }
+        departmentRepository.deleteById(id);
     }
 }
