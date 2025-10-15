@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-@Entity(name = "Users")
+@Entity(name = "users")
 @Getter
 @Setter
 public class User extends BaseDomain<UUID> {

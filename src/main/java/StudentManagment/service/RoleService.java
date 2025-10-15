@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+
 public interface RoleService {
     List<RoleResponseDto> get();
 
@@ -19,5 +20,5 @@ public interface RoleService {
 
     void delete(UUID id);
 
-    Set<Role> getByIdList(List<UUID> uuids);
+    Set<Role> getByIdList(Set<UUID> uuids);
 }

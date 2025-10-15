@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-@Entity(name = "Teacher")
+@Entity(name = "teachers")
 @Getter
 @Setter
 public class Teacher extends BaseDomain<UUID> {

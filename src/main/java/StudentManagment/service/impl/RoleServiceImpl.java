@@ -53,7 +53,8 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Set<Role> getByIdList(List<UUID> uuids) {
+    public Set<Role> getByIdList(Set<UUID> uuids) {
         return new HashSet<>(repository.findAllById(uuids));
     }
+
 }
