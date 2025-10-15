@@ -41,10 +41,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDto create(UserRequestDto userRequestDto) {
-        Set<Role> roleList = roleService.getByIdList(userRequestDto.roleIds());
-        User user = userMapper.toEntity(userRequestDto, roleList, passwordEncoder.encode(userRequestDto.password()));
-        return userMapper.toDto(userRepository.save(user));
+    public UserResponseDto create(UserRequestDto dto) {
+        User user = userMapper.toEntity(dto);
+        user.setPassword(passwordEncoder.encode(dto.password()));
+        userRepository.save(user);
+        return userMapper.toDto(user);
     }
 
     @Override
